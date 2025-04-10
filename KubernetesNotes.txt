@@ -1,0 +1,190 @@
+Kubernates (k8s)
+
+1.Chocolatey
+
+2.kubectl (Kubernetes CLI)
+
+3.Minikube (local Kubernetes cluster)
+
+4..kube/config setup
+
+5. deploy project on Kubernetes
+
+
+Part	                  Role
+Control Plane -	Sochta hai, manage karta hai
+Worker Node	- Kaam karta hai (containers chalata hai)
+Pod	- Container ka wrapper hai
+Kubelet	- Master ki baat sunta hai
+Scheduler -	Decide karta hai kaha kya chalega
+API Server -	Gatekeeper hai
+etcd -	Configuration ka dimaag (database)
+
+
+==========================
+# Kubernetes kya hai?
+
+Kubernetes (k8s) ek open-source container orchestration platform hai jo containers (jaise Docker) ko automate karta hai—deployment, scaling, aur management ke liye.
+Socho aapke paas 100 containers hain—Kubernetes unhe smartly handle karta hai. Jaise ek traffic police jo sab gadiyon ko control karta hai.
+
+Kubernetes is an open-source platform that helps you manage, deploy, and scale containers automatically.
+👉 Think of it like a traffic controller that organizes hundreds of containers (like Docker) running on multiple machines. It makes sure everything runs smoothly without you manually managing each container.
+
+# Kubernetes Architecture Overview
+
+1. Cluster ==>
+Kubernetes ka pura system ek Cluster hota hai.
+Cluster = Master Node(s) + Worker Node(s)
+
+A Kubernetes Cluster is the full system.
+It contains:
+one or more Master Nodes (Control Plane) – The brain.
+Multiple Worker Nodes – Where apps actually run.
+
+
+
+2. Master Node (Control Plane) ==>
+Master Node sab kuch control karta hai—poora system ka brain hota hai.
+
+It controls and manages the entire cluster.
+
+Iske main components:
+
+2.1: API Server -->
+Ye ek gatekeeper hai. Sab request yahi se jaati hai (CLI, UI, etc).
+REST API provide karta hai.
+
+Entry point for all commands (from CLI, dashboard, etc.)
+Like a gatekeeper.
+
+2.2: Scheduler -->
+Decide karta hai ki kaunsa container (Pod) kis worker node par chalega.
+
+Decides which app (Pod) runs on which worker node.
+Like a manager assigning tasks.
+
+2.3: Controller Manager -->
+Ye system ke state ko desired state ke according maintain karta hai.
+Jaise: Replica Controller, Node Controller, etc.
+-->Dekhta hai sab kitchen me sahi se kaam ho raha hai ya nahi.
+   Agar koi dish kharab ho gayi ya cook absent hai, to naya chef assign karta hai.
+   
+Ensures the desired state of the cluster is maintained.
+If a pod fails, it creates a new one automatically.
+
+2.4: etcd (key-value Database) -->
+Ye ek key-value store hai jisme cluster ki sari information hoti hai (configuration, state, etc).
+Bahut important component hai—jaise memory.
+
+Stores all cluster data (like config, status).
+Like a memory book of the cluster.
+
+
+
+3. Worker Node (Minions) ==>
+Yahan actual containers chalte hain. Ye master ke under kaam karte hain.
+
+This is where the actual containers run.
+
+Iske components:
+
+3.1: Kubelet -->
+Worker node pe chalne wala agent hai.
+Master se instruction leta hai aur node pe implement karta hai.
+
+Communicates with the Master.
+Runs and manages Pods on Worker node.
+
+3.2: Kube-proxy -->
+Networking sambhalta hai.
+Load balancing karta hai, aur services ko access dilata hai.
+
+Manages network rules.
+Forwards traffic to the correct Pod.
+Like a router or network manager.
+
+3.3: Container Runtime -->
+Actual container ko chalane ka kaam karta hai (jaise Docker, containerd).
+
+Actually runs the containers.
+Like the engine that powers apps.
+
+
+
+4. Pods (Smallest Unit in Kubernetes) ==>
+Pod = 1 ya 1 se zyada containers (mostly 1)
+Ye containers ek hi IP aur storage share karte hain.
+Kubernetes me aap directly containers nahi chalate, aap Pods chalate ho.
+
+A Pod is the smallest deployable unit.
+Usually contains one container (sometimes more).
+Pods share the same IP and Storage.
+💡 Kubernetes never runs containers directly, it always runs Pods.
+
+
+5. Higher Level Objects (Deployment, ReplicaSet, Service etc.) ==> 
+These help manage apps at a higher level:
+
+5.1: Deployment -->
+Ye batata hai ki koi app kitne replicas me chale.
+Agar ek pod down ho jaye, to naya pod le aata hai.
+
+Tells Kubernetes how many replicas (copies) of a Pod you want.
+Handles rolling updates and restarts.
+
+5.2: ReplicaSet -->
+Ensure karta hai ki specific number of pod instances running rahe.
+
+Makes sure the correct number of Pods are running.
+Replaces crashed ones.
+
+5.3: Service -->
+Pods ke aage ek static IP banata hai.
+Load balancing aur communication simplify karta hai.
+
+Gives a stable IP to access Pods, even if Pods change.
+Helps in load balancing.
+
+
+5.4: ConfigMap & Secret -->
+App ke configuration aur sensitive info (jaise passwords) handle karte hain.
+
+Store app configurations and sensitive data (like passwords).
+Secret encrypts the data.
+
+5.5: Namespace -->
+Ek cluster ko logical parts me divide karta hai—alag-alag teams/apps ke liye.
+
+Divides the cluster into logical sections (e.g., dev, test, prod).
+Helps in organizing large systems.
+
+6.
+Kubernetes Cluster
+│
+├── Master Node (Control Plane)
+│   ├── API Server
+│   ├── Scheduler
+│   ├── Controller Manager
+│   └── etcd (Database)
+│
+├── Worker Node(s)
+│   ├── Kubelet
+│   ├── Kube-proxy
+│   └── Container Runtime (Docker)
+│
+├── Pods
+│   └── Containers
+│
+├── Deployments / ReplicaSets
+│
+├── Services
+│
+├── ConfigMap / Secret
+│
+└── Namespaces
+
+
+
+
+
+"Kubernetes is an open-source container orchestration platform that helps manage containerized applications at scale. Its architecture includes a Control Plane (Master Node) that makes decisions and Worker Nodes that run the actual applications inside Pods. Key components include API Server, Scheduler, Controller Manager, and etcd for the Control Plane, and Kubelet, Kube-proxy, and Container Runtime for the Worker Nodes. Pods are the smallest deployable units, and tools like Deployments and Services help manage and expose them."
