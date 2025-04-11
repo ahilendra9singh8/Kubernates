@@ -21,7 +21,7 @@ API Server -	Gatekeeper hai
 etcd -	Configuration ka dimaag (database)
 
 
-==========================
+========================== Kubernetes architecture
 # Kubernetes kya hai?
 
 Kubernetes (k8s) ek open-source container orchestration platform hai jo containers (jaise Docker) ko automate karta hai—deployment, scaling, aur management ke liye.
@@ -188,3 +188,128 @@ Kubernetes Cluster
 
 
 "Kubernetes is an open-source container orchestration platform that helps manage containerized applications at scale. Its architecture includes a Control Plane (Master Node) that makes decisions and Worker Nodes that run the actual applications inside Pods. Key components include API Server, Scheduler, Controller Manager, and etcd for the Control Plane, and Kubelet, Kube-proxy, and Container Runtime for the Worker Nodes. Pods are the smallest deployable units, and tools like Deployments and Services help manage and expose them."
+
+
+
+
+==================================================================================================================================
+kubernates -->
+
+1. kubectl
+kubectl ek command-line tool hai jiska use Kubernetes clusters ko manage karne ke liye hota hai.
+kubectl = Kubernetes ka remote control
+Isse aap apps ko start, stop, monitor kar sakte ho
+Har command ka ek specific kaam hota hai
+--> kubectl ko Install on Windows using Chocolatey, Scoop, or winget ki madad se kar skte h.
+
+2. Chocolatey, Scoop, aur winget kya hain? --> Yeh teeno Windows ke liye package managers hain.
+Jaise Android mein Play Store hota hai, jahan se aap apps install karte ho.
+Waise hi Windows ke liye yeh tools hain, jinke through aap software jaldi aur easily command line se install, update, uninstall kar sakte ho — bina manually website pe jaake download karein.
+
+==> install kubectl
+choco install kubernetes-cli
+kubectl version --client
+
+Note --> hamne chocolatey(pahele isko install kiya) ka use kiya h aur kubectl ko install kiya h. ab hamara kubectl install ho chuka h.
+
+3.minikube -- yahi ek cluster he (Docker Desktop bhi ek cluster h iska bhi use kr skte h)
+minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.
+All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start
+
+Minikube ek tool hai jo tumhare local computer par ek chhota (mini) Kubernetes cluster run karta hai.
+Real Kubernetes cluster chalana mehenga aur complex hota hai (cloud pe chalana padta hai)
+Minikube se aap:
+Practice kar sakte ho
+Apps test kar sakte ho
+Kubernetes ke concepts seekh sakte ho
+Sab kuch local machine pe bina internet ke bhi kar sakte ho
+Ek single-node Kubernetes cluster banata hai (yaani master aur worker ek hi jagah)
+Ye cluster aapke laptop/PC par virtual machine ya container ke form mein chalta hai
+
+==> install minikube
+choco install minikube
+==>Start your cluster
+minikube start
+==> than you can use kubectl
+kubectl get nodes
+kubectl apply -f app.yaml
+
+
+
+========================================> Deploy project on kebernetes
+start cluster or kubernates -> minikube start
+
+1.docker image chahiye (docker hub se utha lo)
+2.docker container chahiye
+3.sabse pahle pods bnayege jiske andar container rahege
+
+kubectl create deployment my-nginx --image=nginx:latest
+kubectl get deployments
+kubectl get pods
+minikube dashboard
+
+--> abhi mera nginix start ho gya h but yah access nhi hoga kyuki yah pods ke andar jise direct access nhi kr skte uske liye ek tarika jise service object bolte h.
+
+kubectl expose deployment my-nginx --port=80 --type=LoadBalancer
+kubectl get services
+minikube service my-nginx
+
+--> now nginix get on browser
+
+==> abhi tak jo cmd use ki vh
+
+minikube start/delete
+minikube status
+minikube dashboard
+
+kubectl create deployment my-app --image=link
+kubectl get deployments
+kubectl get pods
+kubectl logs <pods name>
+kubectl describe pods
+kubectl delete deployment my-app
+
+kubectl expose deployment my-app --port=80 --type=LoadBalancer
+kubectl get services
+minikube service my-app
+
+
+===============> mene ek reactjs project bnaya dockerfile bnayi phir docker image aur is docker image ko dockerhub pr push kr diya
+ab mujhe is image ko kubernatics pr deploy krna h 
+
+minikube status (check kubernetes is started or not)
+kubectl create deployment my-app --image=link
+
+
+Note --> simple h ya apni dockerfile push kre ya dockerhub se koi bhi get kr le kubernates pr aur use kubernates ki madad se run kr de.
+
+--> agar ham apne project me kuchh changes krte h to vh live update kese hoga kubernetes pr
+kubectl set image deployment my-webapp reactjs-docker=shailendra277/reactjs-docker:v02
+
+here reactjs-docker is container name and give update image so here give v02
+jb tak new image puri tarah deploy nhi ho jayegi tab tak purana pods running rhega than terminate ho jayega.
+
+==> Rollback of Project
+agar image ka galat version de dege jo dockerHub pr h hi nhi to image update show karega but ImagePullBackOff(atak jayega hamesha ke liye) ho jayegi.
+ImagePullBackOff ko hatane ke liye cmd
+
+kubectl rollout undo deployment my-webapp
+
+
+==> Self Healing
+
+
+
+
+
+
+
+
+==================================================================>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
+
+
