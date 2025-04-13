@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         This demo kubernates project!
+         This demo kubernates project version v02!
         </p>
         <a
           className="App-link"
