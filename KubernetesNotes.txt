@@ -16,7 +16,7 @@ choco install kubernetes-cli
 kubectl version --client
 
 3.Minikube (local Kubernetes cluster)
---> yahi ek cluster he (Docker Desktop bhi ek cluster h iska bhi use kr skte h)
+--> yah ek cluster he (Docker Desktop bhi ek cluster h iska bhi use kr skte h)
 minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.
 All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start
 
@@ -214,7 +214,10 @@ etcd  	               Configuration ka dimaag (database)
 
 
 
-"Kubernetes is an open-source container orchestration platform that helps manage containerized applications at scale. Its architecture includes a Control Plane (Master Node) that makes decisions and Worker Nodes that run the actual applications inside Pods. Key components include API Server, Scheduler, Controller Manager, and etcd for the Control Plane, and Kubelet, Kube-proxy, and Container Runtime for the Worker Nodes. Pods are the smallest deployable units, and tools like Deployments and Services help manage and expose them."
+"Kubernetes is an open-source container orchestration platform that helps manage containerized applications at scale. 
+Its architecture includes a Control Plane (Master Node) that makes decisions and Worker Nodes that run the actual applications inside Pods. 
+Key components include API Server, Scheduler, Controller Manager, and etcd for the Control Plane, and Kubelet, Kube-proxy, and Container Runtime for the Worker Nodes. 
+Pods are the smallest deployable units, and tools like Deployments and Services help manage and expose them."
 
 
 ========================================> Deploy project on kebernetes
@@ -277,7 +280,8 @@ ImagePullBackOff ko hatane ke liye cmd
 kubectl rollout undo deployment my-webapp
 
 2. Self Healing (self upchar - automatic restart)
-ek website kubernate cluster -> pods -> container ke andar char rhi h aur yhi kisi small error ke karan band ho jati h isko kubernetes kese handle krta h isi ko self healing kahate h , me chahta hu ye hamesha chalu rhe.
+ek website kubernate cluster -> pods -> container ke andar char rhi h aur yhi kisi small error ke karan band ho jati h isko kubernetes kese handle krta h isi ko self healing kahate h ,
+ me chahta hu ye hamesha chalu rhe.
 -> iske liye Express-Demo project use kiya h.
 -> jese mera project start use forcefully stop kr diya to server stopped ho gya
 -> Express-demo repository from Dockerhub
@@ -296,7 +300,8 @@ minikube service node-app
 --> ab yadi ham apni service ko forcefully exit kr dete h to kubernetes dashboard pr dekehge ki yah red dot ho jayege but kubernetes automatically inko start kr dega.
 
 3.Scalling of App
--> uper hamne dekha bhale hi kubernetes ne app ko restart krke upin running rkha but kuchh second ke liye to app down ho gya tha ham kuchh second ke liye bhi down nhi rakh skte, is issue ko resolve krne ke liye ham multi instance (scale up kr dege) bna dege.
+-> uper hamne dekha bhale hi kubernetes ne app ko restart krke upin running rkha but kuchh second ke liye to app down ho gya tha ham kuchh second ke liye bhi down nhi rakh skte,
+ is issue ko resolve krne ke liye ham multi instance (scale up kr dege) bna dege.
 
 kubectl scale deployment node-app --replicas=4
 
@@ -310,7 +315,7 @@ phle ham deplyment aur service yaml alag bnayege phir dono yaml ek me hi krege. 
 A.)deployment-node-app.yml --> 
 -> deployment ke liye
 -> yh file bnayege kisi bhi location pr aur isme configuration karege.
--> ye file jis bhi directory me h vha pr jakar is file ko start karege to deplyoment create ho jayega aur o bhi cong hogi vh bhi
+-> ye file jis bhi directory me h vha pr jakar is file ko start karege to deplyoment create ho jayega aur bhi cong hogi vh bhi
 
 kubectl apply -f deployment-node-app.yml
 kubectl get deployments
@@ -356,7 +361,8 @@ kubectl apply -f deployment-node-app.yml
 kubectl apply -f service-node-app.yml
 
 -> Problems
-abhi hamare pass two pods(replicas) to two database alag alag pod me bn jayege, jisse ek pod down hone pr data dusre pod ki db me chla jayega yadi me jb access kr rha hu tab first pod chal rha h to usko data nhi milega.
+abhi hamare pass two pods(replicas) to two database alag alag pod me bn jayege, jisse ek pod down hone pr data dusre pod ki db me chla jayega yadi me jb access kr rha hu tab first pod chal rha h
+ to usko data nhi milega.
 
 
 B.) Run each container in seprate pod (Multiple Containers in Separate PODS) ==>
@@ -392,7 +398,7 @@ phir hmane jo mongodb ke liye configuration file bnayi thi usme bta dege ki hame
 
 ab ham apna project github pr push krege aur jenkins ko ec2 me install krke sabhi configuration kr dege, ab jenkins ke dwara github se project ko dockerhub pr image push kr dege 
 aur aws pr ec2 me docker, K8s install kr lege aur jenkins ke dwara is image ko K8s cluster me daal dege jisme hmara .yml use hoga project ko deployment aur run krne ke liye
--> yadi RDS ka use kr rhe h to mysql docker image ki jarurat nhi h. in doni me se koi ek hi use kroge.
+-> yadi RDS ka use kr rhe h to mysql docker image ki jarurat nhi h. in dono me se koi ek hi use kroge.
 
 => quik overview
 
